@@ -283,3 +283,325 @@ footer {
         flex-direction: column;
     }
 }
+/* --- Tabs & Warnings --- */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    background-color: transparent;
+    color: #666;
+    border: 2px solid #ccc;
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.tab-btn:hover {
+    border-color: #0056b3;
+    color: #0056b3;
+}
+
+.tab-btn.active {
+    background-color: #0056b3;
+    color: white;
+    border-color: #0056b3;
+}
+
+.warning-banner {
+    background-color: #fff3e0;
+    border-left: 5px solid #e65100;
+    padding: 1.5rem;
+    border-radius: 5px;
+    text-align: left;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.warning-banner h3 {
+    color: #e65100;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.warning-banner p {
+    color: #555;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+/* --- TVET Banner & Disclaimer --- */
+
+.disclaimer-text {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tvet-banner {
+    background-color: #004085; /* Darker blue to stand out */
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.tvet-content {
+    max-width: 70%;
+}
+
+.tvet-content h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+    color: #ffcc00; /* Yellow accent for the header */
+}
+
+.tvet-content p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #e0e0e0;
+}
+
+.tvet-btn {
+    background-color: #ffcc00;
+    color: #111;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+}
+
+.tvet-btn:hover {
+    background-color: #e6b800;
+}
+
+/* Make it responsive for mobile */
+@media (max-width: 768px) {
+    .tvet-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    .tvet-content {
+        max-width: 100%;
+    }
+}
+/* --- TVET Info Section Styles --- */
+.tvet-header {
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.tvet-header h1 {
+    color: #0056b3;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.tvet-intro {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.tvet-subhead {
+    color: #0056b3;
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+    text-align: left;
+}
+
+/* Route Cards */
+.routes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.route-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.route-card h4 {
+    color: #0056b3;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.route-card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.route-card ul {
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.route-card li {
+    margin-bottom: 0.5rem;
+}
+
+/* Requirements Box */
+.req-box {
+    background-color: #002b5e; /* Dark blue */
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+.req-box h4 {
+    color: #ffcc00;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.req-box ul {
+    padding-left: 1.2rem;
+    line-height: 1.6;
+}
+
+.req-box li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Province List */
+.province-section {
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.province-title {
+    font-size: 1.3rem;
+    color: #111;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.province-badge {
+    background-color: #0056b3;
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+}
+
+.college-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.college-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.college-item span {
+    font-weight: 500;
+    color: #333;
+}
+
+.college-item a {
+    color: #0056b3;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.college-item a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .routes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* --- Update Dashboard Layout for 3 Panels --- */
+.two-column-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Automatically handles 3 panels */
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+/* --- Course Search Form Styles --- */
+.search-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    text-align: left;
+}
+
+.search-box label {
+    display: block;
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.search-box select {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.search-box select:focus {
+    outline: none;
+    border-color: #0056b3;
+}

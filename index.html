@@ -25,11 +25,12 @@
             <button id="exploreBtn">Explore Now</button>
         </section>
 
-        <!-- 2. App Section (Hidden at first) -->
+        <!-- 2. App Dashboard Section (Hidden at first) -->
         <section id="appSection" class="app-container hidden">
             <h2>Find Your Pathway</h2>
             <p class="subtitle">Choose an option below to start your journey.</p>
             
+            <!-- The 3 Panels -->
             <div class="two-column-layout">
                 <!-- Left Side: Explore Universities -->
                 <div class="panel explore-panel">
@@ -38,15 +39,21 @@
                     <button id="browseBtn" class="secondary-btn">Browse Directory</button>
                 </div>
 
-                <!-- Right Side: Calculate APS -->
+                <!-- Middle: Calculate APS -->
                 <div class="panel aps-panel">
                     <h3>Calculate My APS</h3>
                     <p>Enter your APS score to see where you qualify or discover alternative pathways.</p>
-                    
                     <div class="aps-form">
                         <input type="number" id="apsInput" placeholder="Enter APS (e.g. 28)" min="0" max="42">
                         <button id="checkBtn">Check Eligibility</button>
                     </div>
+                </div>
+
+                <!-- Right Side: Search by Course -->
+                <div class="panel course-panel">
+                    <h3>Search by Course</h3>
+                    <p>Know what you want to study? Pick a field to see which institutions offer it.</p>
+                    <button id="searchCourseBtn" class="secondary-btn">Find a Course</button>
                 </div>
             </div>
 
@@ -59,13 +66,41 @@
         <!-- 3. University Directory Section (Hidden at first) -->
         <section id="directorySection" class="app-container hidden">
             <h2>Explore Official Portals</h2>
-            <p class="subtitle">Direct links to South African universities and colleges. Apply straight to the source.</p>
+            <p class="subtitle">Direct links to South African institutions. Apply straight to the source.</p>
             
-            <div id="universityGrid" class="grid-container">
-                <!-- JavaScript will inject the directory cards here -->
+            <!-- Tabs -->
+            <div class="tab-container">
+                <button id="tabPublic" class="tab-btn active">Public Universities</button>
+                <button id="tabPrivate" class="tab-btn">Private Colleges</button>
+                <button id="tabTvet" class="tab-btn">TVET Colleges</button>
             </div>
 
+            <!-- Private Warning Banner -->
+            <div id="privateWarning" class="warning-banner hidden">
+                <h3>Verify Before You Pay</h3>
+                <p>Private education has many legitimate providers, but unfortunately, scams exist. Before paying any application fee, always verify the institution's registration status directly with the <strong>Department of Higher Education and Training (DHET)</strong>.</p>
+            </div>
+            
+            <div id="universityGrid" class="grid-container"></div>
+
             <button id="backToDashboardBtn" class="back-btn">&larr; Back to Dashboard</button>
+        </section>
+
+        <!-- 4. Course Search Section (Hidden at first) -->
+        <section id="courseSearchSection" class="app-container hidden">
+            <h2>What do you want to study?</h2>
+            <p class="subtitle">Pick a field, and see which South African institutions offer it. Always confirm exact requirements on the university's site.</p>
+            
+            <div class="search-box">
+                <label for="fieldSelect">Field of Study</label>
+                <select id="fieldSelect">
+                    <option value="" disabled selected>Select a field...</option>
+                </select>
+            </div>
+
+            <div id="courseResultsGrid" class="grid-container"></div>
+
+            <button id="backFromCourseBtn" class="back-btn">&larr; Back to Dashboard</button>
         </section>
     </main>
 
