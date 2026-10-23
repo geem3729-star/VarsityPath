@@ -11,97 +11,160 @@
     <header>
         <div class="logo">VarsityPath</div>
         <nav>
-            <a href="#" id="navHome">Home</a>
-            <a href="#" id="navApp">Find My Pathway</a>
-            <a href="#">About</a>
+            <a id="navHome" href="#">Home</a>
+            <a id="navApp" href="#">App Dashboard</a>
         </nav>
     </header>
 
     <main>
-        <!-- 1. Hero Section (Visible by default) -->
+        <!-- HOME VIEW -->
         <section id="heroSection" class="hero">
             <h1>Find Your Perfect Higher Education Pathway</h1>
-            <p>Explore institutions, courses, and alternative pathways all in one place.</p>
+            <p>Explore institutions, calculate your APS, plan your funding, and access student support all in one place.</p>
             <button id="exploreBtn">Explore Now</button>
         </section>
 
-        <!-- 2. App Dashboard Section (Hidden at first) -->
+        <!-- DASHBOARD VIEW (3 Main Cards ONLY) -->
         <section id="appSection" class="app-container hidden">
-            <h2>Find Your Pathway</h2>
-            <p class="subtitle">Choose an option below to start your journey.</p>
+            <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 0.5rem; color: #0056b3;">Find Your Pathway</h2>
+            <p class="subtitle" style="text-align: center; margin-bottom: 3rem;">Choose an option below to start your journey.</p>
             
-            <!-- The 3 Panels -->
-            <div class="two-column-layout">
-                <!-- Left Side: Explore Universities -->
-                <div class="panel explore-panel">
+            <div class="dashboard-grid">
+                <!-- Card 1: Explore -->
+                <div class="dash-card">
                     <h3>Explore Universities</h3>
                     <p>Browse our database of institutions, courses, and their specific entry requirements.</p>
                     <button id="browseBtn" class="secondary-btn">Browse Directory</button>
                 </div>
 
-                <!-- Middle: Calculate APS -->
-                <div class="panel aps-panel">
+                <!-- Card 2: Calculate APS -->
+                <div class="dash-card">
                     <h3>Calculate My APS</h3>
                     <p>Enter your APS score to see where you qualify or discover alternative pathways.</p>
-                    <div class="aps-form">
-                        <input type="number" id="apsInput" placeholder="Enter APS (e.g. 28)" min="0" max="42">
-                        <button id="checkBtn">Check Eligibility</button>
-                    </div>
+                    <input type="number" id="simpleApsInput" placeholder="Enter APS (e.g. 28)" style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px;">
+                    <button id="simpleCalcBtn" class="action-btn" style="margin-bottom: 1rem;">Check Eligibility</button>
+                    <button id="openAdvancedCalcBtn" class="text-link-btn">Or use Advanced Matric Calculator &rarr;</button>
                 </div>
 
-                <!-- Right Side: Search by Course -->
-                <div class="panel course-panel">
+                <!-- Card 3: Search by Course -->
+                <div class="dash-card">
                     <h3>Search by Course</h3>
                     <p>Know what you want to study? Pick a field to see which institutions offer it.</p>
                     <button id="searchCourseBtn" class="secondary-btn">Find a Course</button>
                 </div>
             </div>
 
-            <!-- APS Results Grid -->
-            <div id="resultsGrid" class="grid-container"></div>
+            <!-- Simple APS Results -->
+            <div id="simpleResultsGrid" class="grid-container" style="margin-top: 3rem;"></div>
 
-            <button id="backBtn" class="back-btn">&larr; Back to Home</button>
+            <!-- THE BUTTON TO EXPLORE OTHER TOOLS -->
+            <div style="text-align: center; margin-top: 4rem;">
+                <button id="openOtherToolsBtn" class="back-btn" style="padding: 1rem 3rem; font-size: 1.1rem; border-width: 2px;">Explore Other Tools &rarr;</button>
+            </div>
         </section>
 
-        <!-- 3. University Directory Section (Hidden at first) -->
-        <section id="directorySection" class="app-container hidden">
-            <h2>Explore Official Portals</h2>
-            <p class="subtitle">Direct links to South African institutions. Apply straight to the source.</p>
+        <!-- OTHER TOOLS VIEW (Separate page) -->
+        <section id="otherToolsSection" class="app-container hidden">
+            <button id="backFromOtherToolsBtn" class="back-btn" style="margin-bottom: 2rem;">&larr; Back to Dashboard</button>
             
-            <!-- Tabs -->
+            <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 0.5rem; color: #0056b3;">Other Tools</h2>
+            <p class="subtitle" style="text-align: center; margin-bottom: 3rem;">Funding, wellness, and learning resources.</p>
+
+            <div class="dashboard-grid">
+                <!-- Funding Panel -->
+                <div class="dash-card">
+                    <h3>Funding & Cost Planning</h3>
+                    <p>Explore NSFAS, bursaries, and tools to plan the cost of your studies.</p>
+                    <button id="navFunding" class="secondary-btn">View Funding Options</button>
+                </div>
+
+                <!-- Support Panel -->
+                <div class="dash-card">
+                    <h3>Student Support & Learning</h3>
+                    <p>Access wellness, academic persistence, connectivity, and accessible learning resources.</p>
+                    <button id="navSupport" class="secondary-btn">View Support Resources</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADVANCED APS CALCULATOR VIEW -->
+        <section id="advancedCalcSection" class="app-container hidden">
+            <button id="backToDashboardBtn" class="back-btn" style="margin-bottom: 2rem;">&larr; Back to Dashboard</button>
+            
+            <h2 style="text-align: left; font-size: 2.2rem; margin-bottom: 0.5rem;">Calculate my APS score.</h2>
+            <p class="subtitle" style="text-align: left; margin-bottom: 2rem; max-width: 800px;">
+                There are 26 public universities in South Africa, and every one of them scores your matric marks differently. Pick your university, enter your marks, and get that university's own version of your score.
+            </p>
+            
+            <div class="aps-calculator-box">
+                <div class="aps-step">
+                    <strong>Step 1 — Which university?</strong>
+                    <select id="uniSelect">
+                        <!-- 26 Universities injected by JS -->
+                    </select>
+                    <small>Raw percentages of your best 6 subjects added together, Life Orientation excluded.</small>
+                </div>
+
+                <div class="aps-step">
+                    <strong>Step 2 — Your subjects & marks</strong>
+                    <div id="subject-list">
+                        <!-- JS will inject subject rows here -->
+                    </div>
+                    <button id="addSubjectBtn" class="add-btn">+ Add subject</button>
+                </div>
+
+                <button id="advancedCalcBtn" class="action-btn">Calculate my score</button>
+            </div>
+
+            <div id="advancedResultsGrid" class="grid-container" style="margin-top: 3rem;"></div>
+        </section>
+
+        <!-- DIRECTORY VIEW -->
+        <section id="directorySection" class="app-container hidden">
+            <h2>Institution Directory</h2>
             <div class="tab-container">
                 <button id="tabPublic" class="tab-btn active">Public Universities</button>
                 <button id="tabPrivate" class="tab-btn">Private Colleges</button>
                 <button id="tabTvet" class="tab-btn">TVET Colleges</button>
             </div>
-
-            <!-- Private Warning Banner -->
             <div id="privateWarning" class="warning-banner hidden">
-                <h3>Verify Before You Pay</h3>
-                <p>Private education has many legitimate providers, but unfortunately, scams exist. Before paying any application fee, always verify the institution's registration status directly with the <strong>Department of Higher Education and Training (DHET)</strong>.</p>
+                <h3>Important Note on Private Colleges</h3>
+                <p>Private colleges are not subsidized by the government. Ensure they are registered with the DHET before paying any fees.</p>
             </div>
-            
             <div id="universityGrid" class="grid-container"></div>
-
-            <button id="backToDashboardBtn" class="back-btn">&larr; Back to Dashboard</button>
+            <button id="backFromDirBtn" class="back-btn">&larr; Back to Dashboard</button>
         </section>
 
-        <!-- 4. Course Search Section (Hidden at first) -->
+        <!-- COURSE SEARCH VIEW -->
         <section id="courseSearchSection" class="app-container hidden">
-            <h2>What do you want to study?</h2>
-            <p class="subtitle">Pick a field, and see which South African institutions offer it. Always confirm exact requirements on the university's site.</p>
-            
+            <h2>Course Search</h2>
+            <p class="subtitle">Find courses by field of study.</p>
             <div class="search-box">
-                <label for="fieldSelect">Field of Study</label>
+                <label for="fieldSelect">Select a Field of Study:</label>
                 <select id="fieldSelect">
-                    <option value="" disabled selected>Select a field...</option>
+                    <option value="" disabled selected>-- Choose a field --</option>
                 </select>
             </div>
-
             <div id="courseResultsGrid" class="grid-container"></div>
-
             <button id="backFromCourseBtn" class="back-btn">&larr; Back to Dashboard</button>
         </section>
+
+        <!-- FUNDING VIEW -->
+        <section id="fundingSection" class="hidden app-container">
+            <h2>Funding & Cost Planning</h2>
+            <p class="subtitle">Compare funding options, NSFAS guidance, and plan your study costs.</p>
+            <div id="fundingGrid" class="grid-container"></div>
+            <button id="backFromFunding" class="back-btn">&larr; Back to Other Tools</button>
+        </section>
+
+        <!-- SUPPORT VIEW -->
+        <section id="supportSection" class="hidden app-container">
+            <h2>Student Support & Learning</h2>
+            <p class="subtitle">Resources for wellness, academic persistence, connectivity, and accessible learning.</p>
+            <div id="supportGrid" class="grid-container"></div>
+            <button id="backFromSupport" class="back-btn">&larr; Back to Other Tools</button>
+        </section>
+
     </main>
 
     <footer>
