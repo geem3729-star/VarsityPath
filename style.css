@@ -93,7 +93,6 @@ nav a:hover { color: #ffcc00; }
 .action-btn:hover { background-color: #111; }
 .secondary-btn { background-color: transparent; color: #0056b3; border: 2px solid #0056b3; padding: 0.8rem 1.5rem; border-radius: 5px; font-weight: bold; width: 100%; cursor: pointer; transition: all 0.3s; }
 .secondary-btn:hover { background-color: #0056b3; color: white; }
-.text-link-btn { background: none; border: none; color: #0056b3; cursor: pointer; text-decoration: underline; font-size: 0.9rem; margin-top: 0.5rem; }
 .back-btn { background: transparent; color: #0056b3; border: 2px solid #0056b3; padding: 0.6rem 1.5rem; border-radius: 5px; font-weight: bold; cursor: pointer; }
 .back-btn:hover { background-color: #e6f0fa; }
 
@@ -103,7 +102,8 @@ nav a:hover { color: #ffcc00; }
 .card h3 { color: #0056b3; margin-bottom: 0.5rem; font-size: 1.2rem; }
 .card p { color: #555; font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.5; }
 .card hr { border: 0; border-top: 1px solid #eee; margin: 1rem 0; }
-.apply-btn { display: inline-block; margin-top: 1rem; background-color: #e6f0fa; color: #0056b3; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 0.9rem; }
+.apply-btn { display: inline-block; margin-top: 1rem; background-color: #e6f0fa; color: #0056b3; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; text-decoration: none; font-size: 0.9rem; transition: all 0.2s; }
+.apply-btn:hover { background-color: #0056b3; color: white; }
 
 /* Utilities */
 .hidden { display: none !important; }

@@ -43,7 +43,8 @@
                     <p>Enter your APS score to see where you qualify or discover alternative pathways.</p>
                     <input type="number" id="simpleApsInput" placeholder="Enter APS (e.g. 28)" style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px;">
                     <button id="simpleCalcBtn" class="action-btn" style="margin-bottom: 1rem;">Check Eligibility</button>
-                    <button id="openAdvancedCalcBtn" class="text-link-btn">Or use Advanced Matric Calculator &rarr;</button>
+                    <!-- THIS IS NOW A BLUE BLOCK BUTTON -->
+                    <button id="openAdvancedCalcBtn" class="action-btn" style="background-color: #0056b3;">Or use Advanced Matric Calculator &rarr;</button>
                 </div>
 
                 <!-- Card 3: Search by Course -->
@@ -63,22 +64,18 @@
             </div>
         </section>
 
-        <!-- OTHER TOOLS VIEW (Separate page) -->
+        <!-- OTHER TOOLS VIEW -->
         <section id="otherToolsSection" class="app-container hidden">
             <button id="backFromOtherToolsBtn" class="back-btn" style="margin-bottom: 2rem;">&larr; Back to Dashboard</button>
-            
             <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 0.5rem; color: #0056b3;">Other Tools</h2>
             <p class="subtitle" style="text-align: center; margin-bottom: 3rem;">Funding, wellness, and learning resources.</p>
 
             <div class="dashboard-grid">
-                <!-- Funding Panel -->
                 <div class="dash-card">
                     <h3>Funding & Cost Planning</h3>
                     <p>Explore NSFAS, bursaries, and tools to plan the cost of your studies.</p>
                     <button id="navFunding" class="secondary-btn">View Funding Options</button>
                 </div>
-
-                <!-- Support Panel -->
                 <div class="dash-card">
                     <h3>Student Support & Learning</h3>
                     <p>Access wellness, academic persistence, connectivity, and accessible learning resources.</p>
@@ -90,7 +87,6 @@
         <!-- ADVANCED APS CALCULATOR VIEW -->
         <section id="advancedCalcSection" class="app-container hidden">
             <button id="backToDashboardBtn" class="back-btn" style="margin-bottom: 2rem;">&larr; Back to Dashboard</button>
-            
             <h2 style="text-align: left; font-size: 2.2rem; margin-bottom: 0.5rem;">Calculate my APS score.</h2>
             <p class="subtitle" style="text-align: left; margin-bottom: 2rem; max-width: 800px;">
                 There are 26 public universities in South Africa, and every one of them scores your matric marks differently. Pick your university, enter your marks, and get that university's own version of your score.
@@ -99,23 +95,17 @@
             <div class="aps-calculator-box">
                 <div class="aps-step">
                     <strong>Step 1 — Which university?</strong>
-                    <select id="uniSelect">
-                        <!-- 26 Universities injected by JS -->
-                    </select>
+                    <select id="uniSelect"></select>
                     <small>Raw percentages of your best 6 subjects added together, Life Orientation excluded.</small>
                 </div>
 
                 <div class="aps-step">
                     <strong>Step 2 — Your subjects & marks</strong>
-                    <div id="subject-list">
-                        <!-- JS will inject subject rows here -->
-                    </div>
+                    <div id="subject-list"></div>
                     <button id="addSubjectBtn" class="add-btn">+ Add subject</button>
                 </div>
-
                 <button id="advancedCalcBtn" class="action-btn">Calculate my score</button>
             </div>
-
             <div id="advancedResultsGrid" class="grid-container" style="margin-top: 3rem;"></div>
         </section>
 
@@ -164,13 +154,11 @@
             <div id="supportGrid" class="grid-container"></div>
             <button id="backFromSupport" class="back-btn">&larr; Back to Other Tools</button>
         </section>
-
     </main>
 
     <footer>
         <p>&copy; 2026 VarsityPath. FNB Hackathon Project.</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
