@@ -4,7 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. DATA ARRAYS
     // ==========================================
     
-    // DIRECTORY: PUBLIC UNIVERSITIES (All 26)
+    const allUniversities = [
+        "University of Cape Town (UCT)", "University of the Witwatersrand (Wits)", "Stellenbosch University (SU)",
+        "University of Pretoria (UP)", "University of Johannesburg (UJ)", "University of KwaZulu-Natal (UKZN)",
+        "Rhodes University", "University of the Western Cape (UWC)", "North-West University (NWU)",
+        "University of the Free State (UFS)", "Tshwane University of Technology (TUT)", "Durban University of Technology (DUT)",
+        "Cape Peninsula University of Technology (CPUT)", "Central University of Technology (CUT)",
+        "Vaal University of Technology (VUT)", "Mangosuthu University of Technology (MUT)",
+        "Nelson Mandela University (NMU)", "Sefako Makgatho Health Sciences University (SMU)",
+        "University of Limpopo (UL)", "University of Venda (UniVen)", "Walter Sisulu University (WSU)",
+        "Sol Plaatje University (SPU)", "University of Mpumalanga (UMP)", "University of Fort Hare (UFH)",
+        "University of South Africa (UNISA)", "University of Zululand (UniZulu)"
+    ];
+
+    const pathwayData = [
+        { name: "University of Cape Town", course: "BCom Accounting", apsRequired: 35, alternative: "Start with a Higher Certificate in Commerce." },
+        { name: "University of the Witwatersrand", course: "BSc Computer Science", apsRequired: 40, alternative: "Consider a Diploma in IT and transfer credits." },
+        { name: "Tshwane University of Technology", course: "Diploma in IT", apsRequired: 24, alternative: "Enroll in a Higher Certificate in IT (NQF 5)." },
+        { name: "Varsity College (Private)", course: "Bachelor of Business", apsRequired: 20, alternative: "Direct Admission available." }
+    ];
+
     const publicUniversities = [
         { name: "University of Cape Town", desc: "Oldest university in South Africa.", url: "https://www.uct.ac.za" },
         { name: "University of the Witwatersrand", desc: "Research-intensive university in Johannesburg.", url: "https://www.wits.ac.za" },
@@ -34,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "University of Zululand", desc: "Located in KwaDlangezwa, KZN.", url: "https://www.unizulu.ac.za" }
     ];
 
-    // DIRECTORY: PRIVATE COLLEGES
     const privateColleges = [
         { name: "IIE (Varsity College, Vega, Rosebank)", desc: "The Independent Institute of Education.", url: "https://iie.ac.za" },
         { name: "Eduvos", desc: "Multiple SA campuses, IT/Business focus.", url: "https://eduvos.com" },
@@ -48,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Regenesys Business School", desc: "Business and leadership development.", url: "https://www.regenesys.net" }
     ];
 
-    // DIRECTORY: TVET COLLEGES
     const tvetData = {
         "Eastern Cape": ["Buffalo City", "Eastcape Midlands", "Ikhala", "Ingwe", "King Hintsa", "King Sabata Dalindyebo", "Lovedale", "Port Elizabeth"],
         "Free State": ["Flavius Mareka", "Goldfields", "Maluti", "Motheo"],
@@ -61,9 +78,42 @@ document.addEventListener('DOMContentLoaded', () => {
         "Western Cape": ["Boland", "Cape Town", "College of Cape Town", "False Bay", "Northlink", "South Cape", "West Coast"]
     };
 
-    // MASSIVE EXPANDED COURSE DATABASE (All 26 Unis, Private, & TVET)
+    // DIRECT LINKS TO PROSPECTUS / APPLICATION PORTALS
+    const uniLinks = {
+        "University of Cape Town": "https://www.uct.ac.za/main/apply/undergraduate",
+        "Wits University": "https://www.wits.ac.za/study-at-wits/apply/",
+        "Stellenbosch University": "https://www.sun.ac.za/english/maties/Pages/default.aspx",
+        "University of Pretoria": "https://www.up.ac.za/apply",
+        "University of Johannesburg": "https://www.uj.ac.za/apply/",
+        "University of KwaZulu-Natal": "https://www.ukzn.ac.za/apply/",
+        "Rhodes University": "https://www.ru.ac.za/apply/",
+        "University of the Western Cape": "https://www.uwc.ac.za/apply/Pages/default.aspx",
+        "North-West University": "https://studies.nwu.ac.za/apply",
+        "University of the Free State": "https://www.ufs.ac.za/apply",
+        "Tshwane University of Technology": "https://www.tut.ac.za/apply",
+        "Durban University of Technology": "https://www.dut.ac.za/apply/",
+        "Cape Peninsula University of Technology": "https://www.cput.ac.za/study/apply",
+        "Central University of Technology": "https://www.cut.ac.za/apply/",
+        "Vaal University of Technology": "https://www.vut.ac.za/apply/",
+        "Mangosuthu University of Technology": "https://www.mut.ac.za/apply/",
+        "Nelson Mandela University": "https://www.mandela.ac.za/Study-at-Mandela/Apply",
+        "Sefako Makgatho": "https://www.smu.ac.za/apply/",
+        "University of Limpopo": "https://www.ul.ac.za/apply/",
+        "University of Venda": "https://www.univen.ac.za/apply/",
+        "Walter Sisulu University": "https://www.wsu.ac.za/apply/",
+        "Sol Plaatje University": "https://www.spu.ac.za/apply/",
+        "University of Mpumalanga": "https://www.ump.ac.za/apply/",
+        "University of Fort Hare": "https://www.ufh.ac.za/apply/",
+        "University of South Africa": "https://www.unisa.ac.za/sites/corporate/default/Apply-for-admission",
+        "University of Zululand": "https://www.unizulu.ac.za/apply/",
+        "Varsity College": "https://iie.ac.za/apply/",
+        "Eduvos": "https://eduvos.com/apply/",
+        "AFDA": "https://afda.co.za/apply/",
+        "TVET College": "https://www.dhet.gov.za/SitePages/TVETColleges.aspx",
+        "MANCOSA": "https://www.mancosa.co.za/apply/"
+    };
+
     const courseData = [
-        // --- COMPUTER SCIENCE & IT ---
         { field: "Computer Science", name: "University of Cape Town", desc: "BSc Computer Science", aps: 38 },
         { field: "Computer Science", name: "Wits University", desc: "BSc Computer Science", aps: 38 },
         { field: "Computer Science", name: "Stellenbosch University", desc: "BSc Computer Science", aps: 37 },
@@ -72,130 +122,90 @@ document.addEventListener('DOMContentLoaded', () => {
         { field: "Computer Science", name: "University of KwaZulu-Natal", desc: "BSc Computer Science", aps: 33 },
         { field: "Computer Science", name: "Rhodes University", desc: "BSc Computer Science", aps: 34 },
         { field: "Computer Science", name: "University of the Western Cape", desc: "BSc Computer Science", aps: 30 },
-        { field: "Computer Science", name: "North-West University", desc: "BSc Computer Science", aps: 30 },
-        { field: "Computer Science", name: "Nelson Mandela University", desc: "BSc Computer Science", aps: 32 },
         { field: "Computer Science", name: "Tshwane University of Technology", desc: "Diploma in IT", aps: 24 },
         { field: "Computer Science", name: "Cape Peninsula University of Technology", desc: "Diploma in ICT", aps: 26 },
-        { field: "Computer Science", name: "Durban University of Technology", desc: "Diploma in IT", aps: 25 },
-        { field: "Computer Science", name: "IIE (Varsity College)", name: "Varsity College", desc: "Bachelor of IT", aps: 26 },
+        { field: "Computer Science", name: "Varsity College", desc: "Bachelor of IT", aps: 26 },
         { field: "Computer Science", name: "Eduvos", desc: "BSc Information Technology", aps: 22 },
-        { field: "Computer Science", name: "Richfield", desc: "BSc Information Technology", aps: 20 },
-        { field: "Computer Science", name: "TVET College (Various)", desc: "NC(V) IT and Computer Science", aps: 15 },
+        { field: "Computer Science", name: "TVET College", desc: "NC(V) IT and Computer Science", aps: 15 },
 
-        // --- ENGINEERING ---
         { field: "Engineering", name: "University of Cape Town", desc: "BSc Mechanical Engineering", aps: 42 },
         { field: "Engineering", name: "Wits University", desc: "BSc Electrical Engineering", aps: 42 },
         { field: "Engineering", name: "Stellenbosch University", desc: "BEng Civil Engineering", aps: 40 },
         { field: "Engineering", name: "University of Pretoria", desc: "BEng Chemical Engineering", aps: 38 },
         { field: "Engineering", name: "University of Johannesburg", desc: "BEng Mechanical Engineering", aps: 36 },
         { field: "Engineering", name: "University of KwaZulu-Natal", desc: "BSc Civil Engineering", aps: 38 },
-        { field: "Engineering", name: "North-West University", desc: "BEng Electrical Engineering", aps: 34 },
-        { field: "Engineering", name: "Central University of Technology", desc: "BEng Mechanical Engineering", aps: 30 },
-        { field: "Engineering", name: "Vaal University of Technology", desc: "Diploma in Engineering", aps: 26 },
         { field: "Engineering", name: "Tshwane University of Technology", desc: "Diploma in Chemical Engineering", aps: 28 },
         { field: "Engineering", name: "Cape Peninsula University of Technology", desc: "Diploma in Civil Engineering", aps: 28 },
-        { field: "Engineering", name: "TVET College (Various)", desc: "NC(V) Engineering and Related Design", aps: 15 },
+        { field: "Engineering", name: "TVET College", desc: "NC(V) Engineering and Related Design", aps: 15 },
 
-        // --- BUSINESS & COMMERCE ---
         { field: "Business & Commerce", name: "University of Cape Town", desc: "BCom Accounting", aps: 39 },
         { field: "Business & Commerce", name: "Wits University", desc: "BCom Economics", aps: 38 },
         { field: "Business & Commerce", name: "Stellenbosch University", desc: "BCom Management Sciences", aps: 36 },
         { field: "Business & Commerce", name: "University of Pretoria", desc: "BCom Financial Sciences", aps: 34 },
         { field: "Business & Commerce", name: "University of Johannesburg", desc: "BCom Accounting", aps: 30 },
-        { field: "Business & Commerce", name: "University of KwaZulu-Natal", desc: "BCom Management", aps: 32 },
-        { field: "Business & Commerce", name: "University of South Africa", desc: "BCom Distance Learning", aps: 20 },
         { field: "Business & Commerce", name: "MANCOSA", desc: "Bachelor of Commerce", aps: 22 },
-        { field: "Business & Commerce", name: "Regent Business School", desc: "BCom in Entrepreneurship", aps: 20 },
-        { field: "Business & Commerce", name: "TVET College (Various)", desc: "NC(V) Business Management", aps: 15 },
+        { field: "Business & Commerce", name: "TVET College", desc: "NC(V) Business Management", aps: 15 },
 
-        // --- HEALTH SCIENCES & MEDICINE ---
         { field: "Health Sciences & Medicine", name: "University of KwaZulu-Natal", desc: "Bachelor of Medicine (MBChB)", aps: 45 },
         { field: "Health Sciences & Medicine", name: "University of Cape Town", desc: "Bachelor of Medicine (MBChB)", aps: 45 },
         { field: "Health Sciences & Medicine", name: "Wits University", desc: "Bachelor of Medicine (MBChB)", aps: 44 },
         { field: "Health Sciences & Medicine", name: "Stellenbosch University", desc: "Bachelor of Medicine (MBChB)", aps: 42 },
         { field: "Health Sciences & Medicine", name: "University of Pretoria", desc: "BChD Dentistry", aps: 42 },
-        { field: "Health Sciences & Medicine", name: "Sefako Makgatho", desc: "Bachelor of Medicine (MBChB)", aps: 38 },
-        { field: "Health Sciences & Medicine", name: "University of the Free State", desc: "Bachelor of Medicine (MBChB)", aps: 40 },
         { field: "Health Sciences & Medicine", name: "University of Johannesburg", desc: "Bachelor of Nursing", aps: 30 },
-        { field: "Health Sciences & Medicine", name: "University of the Western Cape", desc: "BSc Physiotherapy", aps: 36 },
-        { field: "Health Sciences & Medicine", name: "TVET College (Various)", desc: "NC(V) Health Sciences", aps: 15 },
+        { field: "Health Sciences & Medicine", name: "TVET College", desc: "NC(V) Health Sciences", aps: 15 },
 
-        // --- LAW & LEGAL STUDIES ---
         { field: "Law & Legal Studies", name: "University of Cape Town", desc: "LLB Law", aps: 40 },
         { field: "Law & Legal Studies", name: "Wits University", desc: "LLB Law", aps: 39 },
         { field: "Law & Legal Studies", name: "Stellenbosch University", desc: "LLB Law", aps: 38 },
         { field: "Law & Legal Studies", name: "University of Pretoria", desc: "LLB Law", aps: 36 },
-        { field: "Law & Legal Studies", name: "University of KwaZulu-Natal", desc: "LLB Law", aps: 35 },
-        { field: "Law & Legal Studies", name: "University of Johannesburg", desc: "LLB Law", aps: 34 },
         { field: "Law & Legal Studies", name: "University of South Africa", desc: "LLB Law (Distance)", aps: 24 },
 
-        // --- ARTS & HUMANITIES ---
         { field: "Arts & Humanities", name: "University of Cape Town", desc: "BA Humanities", aps: 32 },
         { field: "Arts & Humanities", name: "Wits University", desc: "BA English Literature", aps: 34 },
         { field: "Arts & Humanities", name: "Stellenbosch University", desc: "BA Humanities", aps: 33 },
         { field: "Arts & Humanities", name: "Rhodes University", desc: "BA Humanities", aps: 30 },
-        { field: "Arts & Humanities", name: "University of Johannesburg", desc: "BA Politics", aps: 28 },
-        { field: "Arts & Humanities", name: "University of South Africa", desc: "BA (Various majors)", aps: 20 },
         { field: "Arts & Humanities", name: "AFDA", desc: "BA Motion Picture", aps: 25 },
 
-        // --- ENGINEERING (TVET/Pvt) ---
-        { field: "Engineering", name: "Eduvos", desc: "Diploma in Engineering", aps: 22 },
-        { field: "Engineering", name: "Central University of Technology", desc: "Diploma in Civil Engineering", aps: 28 },
-
-        // --- SCIENCE & AGRICULTURE ---
         { field: "Agriculture & Environmental Sciences", name: "Stellenbosch University", desc: "BSc Agriculture", aps: 34 },
         { field: "Agriculture & Environmental Sciences", name: "University of Pretoria", desc: "BSc Animal Science", aps: 32 },
         { field: "Agriculture & Environmental Sciences", name: "University of KwaZulu-Natal", desc: "BSc Agribusiness", aps: 30 },
         { field: "Agriculture & Environmental Sciences", name: "University of the Free State", desc: "BSc Agriculture", aps: 28 },
-        { field: "Agriculture & Environmental Sciences", name: "University of Limpopo", desc: "BSc Agriculture", aps: 26 },
 
         { field: "Life Sciences & Biology", name: "Stellenbosch University", desc: "BSc Biological Sciences", aps: 34 },
         { field: "Life Sciences & Biology", name: "University of Cape Town", desc: "BSc Molecular Biology", aps: 38 },
         { field: "Life Sciences & Biology", name: "Wits University", desc: "BSc Genetics", aps: 36 },
         { field: "Life Sciences & Biology", name: "University of Pretoria", desc: "BSc Microbiology", aps: 34 },
-        { field: "Life Sciences & Biology", name: "University of the Western Cape", desc: "BSc Biodiversity", aps: 30 },
 
         { field: "Physical Sciences & Mathematics", name: "University of the Witwatersrand", desc: "BSc Physics", aps: 38 },
         { field: "Physical Sciences & Mathematics", name: "University of Cape Town", desc: "BSc Chemistry", aps: 37 },
         { field: "Physical Sciences & Mathematics", name: "University of Pretoria", desc: "BSc Mathematics", aps: 35 },
-        { field: "Physical Sciences & Mathematics", name: "Stellenbosch University", desc: "BSc Mathematical Sciences", aps: 36 },
 
-        // --- EDUCATION & SOCIAL SCIENCES ---
         { field: "Education & Teaching", name: "University of Pretoria", desc: "BEd Foundation Phase", aps: 28 },
         { field: "Education & Teaching", name: "University of Johannesburg", desc: "BEd Senior Phase", aps: 26 },
         { field: "Education & Teaching", name: "University of South Africa", desc: "BEd Distance Learning", aps: 22 },
-        { field: "Education & Teaching", name: "CPUT", desc: "BEd Further Education", aps: 24 },
-        { field: "Education & Teaching", name: "TVET College (Various)", desc: "NC(V) Education and Development", aps: 15 },
+        { field: "Education & Teaching", name: "TVET College", desc: "NC(V) Education and Development", aps: 15 },
 
         { field: "Social Sciences & Psychology", name: "University of South Africa", desc: "BA Psychology", aps: 22 },
         { field: "Social Sciences & Psychology", name: "University of Cape Town", desc: "BSocSci Psychology", aps: 36 },
         { field: "Social Sciences & Psychology", name: "Wits University", desc: "BSocSci Sociology", aps: 34 },
-        { field: "Social Sciences & Psychology", name: "University of KwaZulu-Natal", desc: "BSocSci Psychology", aps: 32 },
 
-        // --- MEDIA, ARTS & SPORT ---
         { field: "Media & Communication", name: "Rhodes University", desc: "BA Journalism", aps: 30 },
         { field: "Media & Communication", name: "University of Johannesburg", desc: "BA Communication", aps: 28 },
-        { field: "Media & Communication", name: "Cape Peninsula University of Technology", desc: "Diploma in Film", aps: 26 },
         { field: "Media & Communication", name: "Varsity College", desc: "BA Corporate Communication", aps: 26 },
 
         { field: "Performing & Visual Arts", name: "University of Cape Town", desc: "Diploma in Fine Art", aps: 28 },
         { field: "Performing & Visual Arts", name: "Wits University", desc: "BA Dramatic Art", aps: 30 },
-        { field: "Performing & Visual Arts", name: "Tshwane University of Technology", desc: "Diploma in Fashion Design", aps: 24 },
         { field: "Performing & Visual Arts", name: "AFDA", desc: "BA Live Performance", aps: 25 },
 
         { field: "Sport Science & Human Movement", name: "University of Pretoria", desc: "BSc Sport Science", aps: 32 },
         { field: "Sport Science & Human Movement", name: "Stellenbosch University", desc: "BSc Human Movement", aps: 33 },
-        { field: "Sport Science & Human Movement", name: "University of the Western Cape", desc: "BSc Sport Science", aps: 28 },
 
-        // --- HOSPITALITY & ARCHITECTURE ---
         { field: "Tourism & Hospitality", name: "Cape Peninsula University of Technology", desc: "Diploma in Tourism", aps: 24 },
         { field: "Tourism & Hospitality", name: "University of Johannesburg", desc: "BCom Hospitality", aps: 28 },
-        { field: "Tourism & Hospitality", name: "Tshwane University of Technology", desc: "Diploma in Hospitality", aps: 22 },
-        { field: "Tourism & Hospitality", name: "TVET College (Various)", desc: "NC(V) Hospitality", aps: 15 },
+        { field: "Tourism & Hospitality", name: "TVET College", desc: "NC(V) Hospitality", aps: 15 },
 
         { field: "Architecture & Built Environment", name: "University of Pretoria", desc: "BSc Architecture", aps: 35 },
         { field: "Architecture & Built Environment", name: "University of Cape Town", desc: "BAS Architecture", aps: 38 },
-        { field: "Architecture & Built Environment", name: "Wits University", desc: "BAS Architectural Studies", aps: 36 },
         { field: "Architecture & Built Environment", name: "Tshwane University of Technology", desc: "Diploma in Architectural Technology", aps: 26 }
     ];
 
@@ -271,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const fundingGrid = document.getElementById('fundingGrid');
     const supportGrid = document.getElementById('supportGrid');
 
-    // Directory Tabs Elements
     const tabPublic = document.getElementById('tabPublic');
     const tabPrivate = document.getElementById('tabPrivate');
     const tabTvet = document.getElementById('tabTvet');
@@ -410,14 +419,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 6. ADVANCED APS CALCULATOR
     // ==========================================
-    allUniversities.forEach(uni => {
-        const option = document.createElement('option');
-        option.value = uni;
-        option.textContent = uni;
-        uniSelect.appendChild(option);
-    });
+    if (uniSelect) {
+        allUniversities.forEach(uni => {
+            const option = document.createElement('option');
+            option.value = uni;
+            option.textContent = uni;
+            uniSelect.appendChild(option);
+        });
+    }
 
     function addSubjectRow(defaultSubject = "Other") {
+        if (!subjectList) return;
+        
         const row = document.createElement('div');
         row.classList.add('subject-row');
 
@@ -453,7 +466,10 @@ document.addEventListener('DOMContentLoaded', () => {
     addSubjectRow("Mathematics");
     addSubjectRow("Life Orientation");
     addSubjectRow("Other"); addSubjectRow("Other"); addSubjectRow("Other");
-    addSubjectBtn.addEventListener('click', () => addSubjectRow());
+    
+    if (addSubjectBtn) {
+        addSubjectBtn.addEventListener('click', () => addSubjectRow());
+    }
 
     function getApsPoints(percent) {
         if (percent >= 80) return 7;
@@ -465,45 +481,47 @@ document.addEventListener('DOMContentLoaded', () => {
         return 1;
     }
 
-    advancedCalcBtn.addEventListener('click', () => {
-        const rows = document.querySelectorAll('.subject-row');
-        let apsArray = [];
+    if (advancedCalcBtn) {
+        advancedCalcBtn.addEventListener('click', () => {
+            const rows = document.querySelectorAll('.subject-row');
+            let apsArray = [];
 
-        rows.forEach(row => {
-            const subjectName = row.querySelector('.subject-select').value;
-            const markValue = row.querySelector('.subject-mark').value;
+            rows.forEach(row => {
+                const subjectName = row.querySelector('.subject-select').value;
+                const markValue = row.querySelector('.subject-mark').value;
 
-            if (markValue !== "" && markValue !== null && subjectName !== "Life Orientation") {
-                apsArray.push({ subject: subjectName, points: getApsPoints(parseInt(markValue)) });
+                if (markValue !== "" && markValue !== null && subjectName !== "Life Orientation") {
+                    apsArray.push({ subject: subjectName, points: getApsPoints(parseInt(markValue)) });
+                }
+            });
+
+            if (apsArray.length < 6) {
+                alert("Please enter marks for at least 6 subjects (excluding Life Orientation).");
+                return;
             }
+
+            apsArray.sort((a, b) => b.points - a.points);
+            const totalAps = apsArray.slice(0, 6).reduce((sum, item) => sum + item.points, 0);
+
+            advancedResultsGrid.innerHTML = `<h2 style="width:100%; text-align:center; color:#0056b3; margin-bottom: 2rem;">Your Total APS: ${totalAps} <br><span style="font-size:1rem; color:#666; font-weight:normal;">(Based on top 6 subjects)</span></h2>`;
+
+            pathwayData.forEach(path => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                let resultHtml = "";
+                
+                if (totalAps >= path.apsRequired) {
+                    card.style.borderTopColor = "#2e7d32"; 
+                    resultHtml = `<p style="color: #2e7d32; font-weight: bold;">Qualified</p><p>You meet the required APS of ${path.apsRequired}.</p>`;
+                } else {
+                    card.style.borderTopColor = "#d32f2f"; 
+                    resultHtml = `<p style="color: #d32f2f; font-weight: bold;">Not Qualified</p><div style="background-color: #fff3e0; padding: 1rem; border-radius: 5px; margin-top: 10px;"><p style="color: #e65100; font-weight: bold;">Alternative:</p><p>${path.alternative}</p></div>`;
+                }
+                card.innerHTML = `<h3>${path.name}</h3><p><strong>Course:</strong> ${path.course}</p><hr>${resultHtml}`;
+                advancedResultsGrid.appendChild(card);
+            });
         });
-
-        if (apsArray.length < 6) {
-            alert("Please enter marks for at least 6 subjects (excluding Life Orientation).");
-            return;
-        }
-
-        apsArray.sort((a, b) => b.points - a.points);
-        const totalAps = apsArray.slice(0, 6).reduce((sum, item) => sum + item.points, 0);
-
-        advancedResultsGrid.innerHTML = `<h2 style="width:100%; text-align:center; color:#0056b3; margin-bottom: 2rem;">Your Total APS: ${totalAps} <br><span style="font-size:1rem; color:#666; font-weight:normal;">(Based on top 6 subjects)</span></h2>`;
-
-        pathwayData.forEach(path => {
-            const card = document.createElement('div');
-            card.classList.add('card');
-            let resultHtml = "";
-            
-            if (totalAps >= path.apsRequired) {
-                card.style.borderTopColor = "#2e7d32"; 
-                resultHtml = `<p style="color: #2e7d32; font-weight: bold;">Qualified</p><p>You meet the required APS of ${path.apsRequired}.</p>`;
-            } else {
-                card.style.borderTopColor = "#d32f2f"; 
-                resultHtml = `<p style="color: #d32f2f; font-weight: bold;">Not Qualified</p><div style="background-color: #fff3e0; padding: 1rem; border-radius: 5px; margin-top: 10px;"><p style="color: #e65100; font-weight: bold;">Alternative:</p><p>${path.alternative}</p></div>`;
-            }
-            card.innerHTML = `<h3>${path.name}</h3><p><strong>Course:</strong> ${path.course}</p><hr>${resultHtml}`;
-            advancedResultsGrid.appendChild(card);
-        });
-    });
+    }
 
     // ==========================================
     // 7. COURSE SEARCH
@@ -518,30 +536,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    fieldSelect.addEventListener('change', (e) => {
-        const selectedField = e.target.value;
-        courseResultsGrid.innerHTML = '';
-        
-        const filteredCourses = courseData.filter(course => course.field === selectedField);
+    if (fieldSelect) {
+        fieldSelect.addEventListener('change', (e) => {
+            const selectedField = e.target.value;
+            courseResultsGrid.innerHTML = '';
+            
+            const filteredCourses = courseData.filter(course => course.field === selectedField);
 
-        if (filteredCourses.length === 0) {
-            courseResultsGrid.innerHTML = `<div class="card" style="border-top-color: #e65100; grid-column: 1 / -1; text-align: center;"><h3>No courses listed yet</h3><p>We are currently building our database for <strong>${selectedField}</strong>.</p></div>`;
-            return;
-        }
+            if (filteredCourses.length === 0) {
+                courseResultsGrid.innerHTML = `<div class="card" style="border-top-color: #e65100; grid-column: 1 / -1; text-align: center;"><h3>No courses listed yet</h3><p>We are currently building our database for <strong>${selectedField}</strong>.</p></div>`;
+                return;
+            }
 
-        filteredCourses.forEach(course => {
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.style.borderTopColor = "#0056b3"; 
-            card.innerHTML = `
-                <h3>${course.name}</h3>
-                <p><strong>Course:</strong> ${course.desc}</p>
-                <p style="color: #0056b3; font-weight: bold;">Required APS: ${course.aps}</p>
-                <a href="https://www.google.com/search?q=${encodeURIComponent(course.name + ' ' + course.desc)}" target="_blank" class="apply-btn">View Requirements &rarr;</a>
-            `;
-            courseResultsGrid.appendChild(card);
+            filteredCourses.forEach(course => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.style.borderTopColor = "#0056b3"; 
+                
+                // GET THE DIRECT PROSPECTUS LINK
+                const directLink = uniLinks[course.name] || "https://www.google.com/search?q=" + encodeURIComponent(course.name + ' prospectus');
+
+                card.innerHTML = `
+                    <h3>${course.name}</h3>
+                    <p><strong>Course:</strong> ${course.desc}</p>
+                    <p style="color: #0056b3; font-weight: bold;">Required APS: ${course.aps}</p>
+                    <a href="${directLink}" target="_blank" class="apply-btn">View Prospectus &rarr;</a>
+                `;
+                courseResultsGrid.appendChild(card);
+            });
         });
-    });
+    }
 
     // ==========================================
     // 8. FUNDING & SUPPORT RENDERERS

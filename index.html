@@ -24,30 +24,26 @@
             <button id="exploreBtn">Explore Now</button>
         </section>
 
-        <!-- DASHBOARD VIEW (3 Main Cards ONLY) -->
+        <!-- DASHBOARD VIEW -->
         <section id="appSection" class="app-container hidden">
             <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 0.5rem; color: #0056b3;">Find Your Pathway</h2>
             <p class="subtitle" style="text-align: center; margin-bottom: 3rem;">Choose an option below to start your journey.</p>
             
             <div class="dashboard-grid">
-                <!-- Card 1: Explore -->
                 <div class="dash-card">
                     <h3>Explore Universities</h3>
                     <p>Browse our database of institutions, courses, and their specific entry requirements.</p>
                     <button id="browseBtn" class="secondary-btn">Browse Directory</button>
                 </div>
 
-                <!-- Card 2: Calculate APS -->
                 <div class="dash-card">
                     <h3>Calculate My APS</h3>
                     <p>Enter your APS score to see where you qualify or discover alternative pathways.</p>
                     <input type="number" id="simpleApsInput" placeholder="Enter APS (e.g. 28)" style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px;">
                     <button id="simpleCalcBtn" class="action-btn" style="margin-bottom: 1rem;">Check Eligibility</button>
-                    <!-- THIS IS NOW A BLUE BLOCK BUTTON -->
                     <button id="openAdvancedCalcBtn" class="action-btn" style="background-color: #0056b3;">Or use Advanced Matric Calculator &rarr;</button>
                 </div>
 
-                <!-- Card 3: Search by Course -->
                 <div class="dash-card">
                     <h3>Search by Course</h3>
                     <p>Know what you want to study? Pick a field to see which institutions offer it.</p>
@@ -55,10 +51,8 @@
                 </div>
             </div>
 
-            <!-- Simple APS Results -->
             <div id="simpleResultsGrid" class="grid-container" style="margin-top: 3rem;"></div>
 
-            <!-- THE BUTTON TO EXPLORE OTHER TOOLS -->
             <div style="text-align: center; margin-top: 4rem;">
                 <button id="openOtherToolsBtn" class="back-btn" style="padding: 1rem 3rem; font-size: 1.1rem; border-width: 2px;">Explore Other Tools &rarr;</button>
             </div>
