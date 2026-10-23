@@ -1,3 +1,6 @@
+/* Utilities */
+.hidden { display: none !important; }
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -8,7 +11,6 @@
 
 /* GLASSMORPHISM BACKGROUND */
 body {
-    /* A smooth gradient background is required for the glass effect to show */
     background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #c7d2fe 100%);
     background-attachment: fixed;
     color: #333;
@@ -17,9 +19,9 @@ body {
     min-height: 100vh;
 }
 
-/* Header Styles (Glass) */
+/* Header Styles */
 header {
-    background: rgba(0, 86, 179, 0.75); /* Semi-transparent blue */
+    background: rgba(0, 86, 179, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     color: white;
@@ -38,7 +40,7 @@ header {
 nav a { color: white; text-decoration: none; margin-left: 1.5rem; font-weight: 500; cursor: pointer; transition: color 0.3s; }
 nav a:hover { color: #ffcc00; }
 
-/* Hero Section (Glass) */
+/* Hero Section */
 .hero {
     text-align: center;
     padding: 5rem 2rem;
@@ -54,16 +56,9 @@ nav a:hover { color: #ffcc00; }
 .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #0056b3; }
 .hero p { font-size: 1.2rem; margin-bottom: 2rem; color: #555; }
 #exploreBtn { 
-    background-color: #0056b3; 
-    color: white; 
-    border: none; 
-    padding: 1rem 3rem; 
-    font-size: 1.1rem; 
-    font-weight: bold; 
-    border-radius: 8px; 
-    cursor: pointer; 
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+    background-color: #0056b3; color: white; border: none; padding: 1rem 3rem; 
+    font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; 
+    transition: all 0.3s; box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
 }
 #exploreBtn:hover { background-color: #003d82; transform: translateY(-2px); }
 
@@ -73,145 +68,107 @@ nav a:hover { color: #ffcc00; }
 .subtitle { color: #475569; margin-bottom: 2rem; font-size: 1rem; }
 
 /* Dashboard Cards (Glass) */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
+.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
 .dash-card {
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 2.5rem 2rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-    text-align: left;
-    display: flex;
-    flex-direction: column;
+    background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    padding: 2.5rem 2rem; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); text-align: left; display: flex; flex-direction: column;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.dash-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
-    background: rgba(255, 255, 255, 0.7);
-}
+.dash-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2); background: rgba(255, 255, 255, 0.7); }
 .dash-card h3 { color: #0056b3; margin-bottom: 1rem; font-size: 1.4rem; }
 .dash-card p { color: #475569; margin-bottom: 1.5rem; line-height: 1.5; flex-grow: 1; font-size: 0.95rem; }
 
-/* Advanced APS Calculator Styles (Glass) */
+/* Advanced APS Calculator Styles */
 .aps-calculator-box {
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    padding: 2.5rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-    max-width: 850px;
+    background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    padding: 2.5rem; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); max-width: 850px;
 }
 .aps-step { margin-bottom: 2rem; }
 .aps-step strong { display: block; color: #1c3d5a; margin-bottom: 0.8rem; font-size: 1rem; }
-.aps-step select { 
-    width: 100%; padding: 0.9rem; font-size: 0.95rem; 
-    border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; 
-    background-color: rgba(255, 255, 255, 0.9); 
-    outline: none;
-}
+.aps-step select { width: 100%; padding: 0.9rem; font-size: 0.95rem; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; background-color: rgba(255, 255, 255, 0.9); outline: none; }
 .aps-step small { display: block; color: #64748b; font-size: 0.75rem; margin-bottom: 1.5rem; }
 
 .subject-row { display: flex; gap: 1rem; margin-bottom: 0.8rem; align-items: center; }
-.subject-row select { 
-    flex: 2; padding: 0.9rem; border: 1px solid rgba(0, 0, 0, 0.1); 
-    border-radius: 8px; background-color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; 
-}
-.subject-row input { 
-    flex: 1; padding: 0.9rem; border: 1px solid rgba(0, 0, 0, 0.1); 
-    border-radius: 8px; font-size: 0.95rem; background-color: rgba(255, 255, 255, 0.9); 
-}
+.subject-row select { flex: 2; padding: 0.9rem; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; background-color: rgba(255, 255, 255, 0.9); font-size: 0.95rem; }
+.subject-row input { flex: 1; padding: 0.9rem; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; font-size: 0.95rem; background-color: rgba(255, 255, 255, 0.9); }
 .remove-btn { background: transparent; color: #64748b; border: none; cursor: pointer; font-weight: 500; font-size: 0.9rem; min-width: 70px; text-align: right; }
 .remove-btn:hover { color: #ef4444; }
-.add-btn { 
-    background-color: rgba(255, 255, 255, 0.5); color: #475569; 
-    border: 1px dashed #94a3b8; padding: 0.6rem 1.2rem; 
-    border-radius: 8px; cursor: pointer; margin-bottom: 2rem; 
-    transition: all 0.2s;
-}
+.add-btn { background-color: rgba(255, 255, 255, 0.5); color: #475569; border: 1px dashed #94a3b8; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; }
 .add-btn:hover { background-color: rgba(255, 255, 255, 0.9); }
 
 /* Buttons */
-.action-btn { 
-    background-color: #333; color: white; border: none; padding: 1rem; 
-    font-size: 1rem; font-weight: bold; border-radius: 8px; 
-    cursor: pointer; width: 100%; transition: all 0.3s; 
-}
+.action-btn { background-color: #333; color: white; border: none; padding: 1rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; transition: all 0.3s; }
 .action-btn:hover { background-color: #111; }
-.secondary-btn { 
-    background-color: rgba(255, 255, 255, 0.5); color: #0056b3; 
-    border: 2px solid #0056b3; padding: 0.8rem 1.5rem; 
-    border-radius: 8px; font-weight: bold; width: 100%; 
-    cursor: pointer; transition: all 0.3s; 
-}
+.secondary-btn { background-color: rgba(255, 255, 255, 0.5); color: #0056b3; border: 2px solid #0056b3; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; transition: all 0.3s; }
 .secondary-btn:hover { background-color: #0056b3; color: white; }
-.back-btn { 
-    background: rgba(255, 255, 255, 0.6); color: #0056b3; 
-    border: 2px solid #0056b3; padding: 0.6rem 1.5rem; 
-    border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s;
-}
+.back-btn { background: rgba(255, 255, 255, 0.6); color: #0056b3; border: 2px solid #0056b3; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
 .back-btn:hover { background-color: #0056b3; color: white; }
 
 /* Grid and Cards (Results) */
 .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
-.card { 
-    background: rgba(255, 255, 255, 0.75); 
-    backdrop-filter: blur(8px);
-    padding: 1.5rem; border-radius: 12px; 
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.08); 
-    border-top: 6px solid #ccc; text-align: left; 
-    border-left: 1px solid rgba(255,255,255,0.8);
-    border-right: 1px solid rgba(255,255,255,0.8);
-    border-bottom: 1px solid rgba(255,255,255,0.8);
-}
+.card { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.08); border-top: 6px solid #ccc; text-align: left; border-left: 1px solid rgba(255,255,255,0.8); border-right: 1px solid rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.8); }
 .card h3 { color: #0056b3; margin-bottom: 0.5rem; font-size: 1.2rem; }
 .card p { color: #475569; font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.5; }
 .card hr { border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 1rem 0; }
-.apply-btn { 
-    display: inline-block; margin-top: 1rem; 
-    background-color: rgba(0, 86, 179, 0.1); color: #0056b3; 
-    padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; 
-    text-decoration: none; font-size: 0.9rem; transition: all 0.2s; 
-}
+.apply-btn { display: inline-block; margin-top: 1rem; background-color: rgba(0, 86, 179, 0.1); color: #0056b3; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; text-decoration: none; font-size: 0.9rem; transition: all 0.2s; }
 .apply-btn:hover { background-color: #0056b3; color: white; }
 
-/* Utilities */
-.hidden { display: none !important; }
+/* Footer */
 footer { text-align: center; padding: 1.5rem; background-color: rgba(34, 34, 34, 0.9); color: #aaa; margin-top: auto; backdrop-filter: blur(10px); }
 
 /* Tabs & Search Box */
 .tab-container { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-.tab-btn { 
-    background-color: rgba(255, 255, 255, 0.5); color: #475569; 
-    border: 2px solid #ccc; padding: 0.8rem 2rem; 
-    border-radius: 30px; cursor: pointer; font-weight: bold; transition: all 0.3s;
-}
+.tab-btn { background-color: rgba(255, 255, 255, 0.5); color: #475569; border: 2px solid #ccc; padding: 0.8rem 2rem; border-radius: 30px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
 .tab-btn.active { background-color: #0056b3; color: white; border-color: #0056b3; box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3); }
+.search-box { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); border: 1px solid rgba(255,255,255,0.8); max-width: 800px; margin: 0 auto 3rem auto; text-align: left; }
+.search-box select { width: 100%; padding: 1rem; font-size: 1rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; background-color: rgba(255, 255, 255, 0.9); margin-top: 0.8rem; outline: none; }
 
-.search-box { 
-    background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px);
-    padding: 2rem; border-radius: 12px; 
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); 
-    border: 1px solid rgba(255,255,255,0.8);
-    max-width: 800px; margin: 0 auto 3rem auto; text-align: left; 
+/* --- CHATBOT STYLES --- */
+.chatbot-fab {
+    position: fixed; bottom: 30px; right: 30px; padding: 15px 25px; border-radius: 50px;
+    background-color: #0056b3; color: white; border: none; font-size: 1rem; font-weight: bold;
+    cursor: pointer; box-shadow: 0 4px 15px rgba(0,86,179,0.4); z-index: 9999; transition: transform 0.2s;
 }
-.search-box select { 
-    width: 100%; padding: 1rem; font-size: 1rem; 
-    border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; 
-    background-color: rgba(255, 255, 255, 0.9); margin-top: 0.8rem; 
-    outline: none;
+.chatbot-fab:hover { transform: scale(1.05); background-color: #003d82; }
+
+.chatbot-window {
+    position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px;
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+    display: flex; flex-direction: column; z-index: 9999; overflow: hidden;
 }
+
+.chat-header {
+    background: #0056b3; color: white; padding: 1rem;
+    display: flex; justify-content: space-between; align-items: center; font-weight: bold;
+}
+.chat-header button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+
+.chat-messages {
+    flex-grow: 1; padding: 1rem; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 10px;
+}
+.message { padding: 10px 15px; border-radius: 12px; max-width: 85%; font-size: 0.9rem; line-height: 1.4; }
+.bot-message { background: #f1f5f9; color: #333; align-self: flex-start; border-bottom-left-radius: 0; border: 1px solid #e2e8f0; }
+.user-message { background: #0056b3; color: white; align-self: flex-end; border-bottom-right-radius: 0; }
+
+.chat-input-area { display: flex; padding: 10px; border-top: 1px solid rgba(0,0,0,0.1); background: white; }
+.chat-input-area input { flex-grow: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 20px; outline: none; margin-right: 10px; font-size: 0.95rem; }
+.chat-input-area button { background: #0056b3; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+.chat-input-area button:hover { background: #003d82; }
+
+.chat-action-btn {
+    display: inline-block; margin-top: 8px; background: #e6f0fa; color: #0056b3;
+    border: 1px solid #0056b3; padding: 6px 12px; border-radius: 6px;
+    cursor: pointer; font-size: 0.8rem; font-weight: bold; text-decoration: none;
+    transition: all 0.2s; text-align: center; width: 100%;
+}
+.chat-action-btn:hover { background: #0056b3; color: white; }
 
 @media (max-width: 768px) { 
     .subject-row { flex-direction: column; align-items: stretch; } 
     .remove-btn { text-align: left; padding: 0; margin-top: 0.5rem; } 
+    .chatbot-window { width: 90%; right: 5%; bottom: 90px; }
 }
