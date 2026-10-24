@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 8. CHATBOT LOGIC
+    // 8. CHATBOT LOGIC & DRAGGABLE FEATURE
     // ==========================================
     const chatbotToggle = document.getElementById('chatbot-toggle');
     const chatbotWindow = document.getElementById('chatbot-window');
@@ -304,9 +304,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatSend = document.getElementById('chat-send');
     const chatMessages = document.getElementById('chat-messages');
 
-    // Test if elements exist to prevent crash
+    // --- DRAGGABLE LOGIC ---
+    let isDragging = false;
+
+    function makeDraggable(elmnt) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        
+        elmnt.onmousedown = dragMouseDown;
+        elmnt.ontouchstart = dragMouseDown;
+
+        function dragMouseDown(e) {
+            // Only left click (button 0) or touch
+            if (e.button !== 0 && !e.touches) return;
+            // Don't drag if clicking the close button
+            if (e.target.id === 'chatbot-close') return;
+
+            isDragging = false;
+            let clientX = e.clientX || e.touches[0].clientX;
+            let clientY = e.clientY || e.touches[0].clientY;
+            pos3 = clientX;
+            pos4 = clientY;
+            
+            document.onmouseup = closeDragElement;
+            document.ontouchend = closeDragElement;
+            document.onmousemove = elementDrag;
+            document.ontouchmove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            isDragging = true;
+            let clientX = e.clientX || e.touches[0].clientX;
+            let clientY = e.clientY || e.touches[0].clientY;
+            
+            pos1 = pos3 - clientX;
+            pos2 = pos4 - clientY;
+            pos3 = clientX;
+            pos4 = clientY;
+            
+            // Calculate new position
+            let newTop = elmnt.offsetTop - pos2;
+            let newLeft = elmnt.offsetLeft - pos1;
+
+            // Keep within screen bounds
+            if (newTop < 0) newTop = 0;
+            if (newLeft < 0) newLeft = 0;
+            if (newTop > window.innerHeight - elmnt.offsetHeight) newTop = window.innerHeight - elmnt.offsetHeight;
+            if (newLeft > window.innerWidth - elmnt.offsetWidth) newLeft = window.innerWidth - elmnt.offsetWidth;
+
+            // Apply new position (switch from bottom/right to top/left)
+            elmnt.style.bottom = 'auto';
+            elmnt.style.right = 'auto';
+            elmnt.style.top = newTop + "px";
+            elmnt.style.left = newLeft + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.ontouchend = null;
+            document.onmousemove = null;
+            document.ontouchmove = null;
+        }
+    }
+
+    // Apply draggable to the FAB button and the Chat Header
     if (chatbotToggle && chatbotWindow) {
-        chatbotToggle.addEventListener('click', () => { 
+        makeDraggable(chatbotToggle);
+        makeDraggable(chatbotWindow.querySelector('.chat-header'));
+
+        // Toggle Chatbot Window
+        chatbotToggle.addEventListener('click', (e) => { 
+            if (isDragging) {
+                e.preventDefault();
+                return; // Don't open if the user was dragging
+            }
             chatbotWindow.classList.toggle('hidden'); 
         });
         
@@ -314,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chatbotWindow.classList.add('hidden'); 
         });
 
+        // --- CHAT MESSAGE LOGIC ---
         function appendMessage(sender, text, actionFn = null, actionText = "") {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
@@ -377,7 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         chatSend.addEventListener('click', handleChat);
         chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
-    } else {
-        console.error("Chatbot HTML elements were not found. Check index.html");
     }
+
+
 });

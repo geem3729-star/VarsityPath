@@ -124,51 +124,18 @@ footer { text-align: center; padding: 1.5rem; background-color: rgba(34, 34, 34,
 .tab-btn.active { background-color: #0056b3; color: white; border-color: #0056b3; box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3); }
 .search-box { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); border: 1px solid rgba(255,255,255,0.8); max-width: 800px; margin: 0 auto 3rem auto; text-align: left; }
 .search-box select { width: 100%; padding: 1rem; font-size: 1rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; background-color: rgba(255, 255, 255, 0.9); margin-top: 0.8rem; outline: none; }
-
-/* --- CHATBOT STYLES --- */
+/* Update these existing classes in your CSS */
 .chatbot-fab {
     position: fixed; bottom: 30px; right: 30px; padding: 15px 25px; border-radius: 50px;
     background-color: #0056b3; color: white; border: none; font-size: 1rem; font-weight: bold;
-    cursor: pointer; box-shadow: 0 4px 15px rgba(0,86,179,0.4); z-index: 9999; transition: transform 0.2s;
-}
-.chatbot-fab:hover { transform: scale(1.05); background-color: #003d82; }
-
-.chatbot-window {
-    position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px;
-    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
-    display: flex; flex-direction: column; z-index: 9999; overflow: hidden;
+    cursor: grab; /* Added this */
+    touch-action: none; /* Added this */
+    box-shadow: 0 4px 15px rgba(0,86,179,0.4); z-index: 9999; transition: transform 0.2s;
 }
 
 .chat-header {
     background: #0056b3; color: white; padding: 1rem;
     display: flex; justify-content: space-between; align-items: center; font-weight: bold;
-}
-.chat-header button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; line-height: 1; }
-
-.chat-messages {
-    flex-grow: 1; padding: 1rem; overflow-y: auto;
-    display: flex; flex-direction: column; gap: 10px;
-}
-.message { padding: 10px 15px; border-radius: 12px; max-width: 85%; font-size: 0.9rem; line-height: 1.4; }
-.bot-message { background: #f1f5f9; color: #333; align-self: flex-start; border-bottom-left-radius: 0; border: 1px solid #e2e8f0; }
-.user-message { background: #0056b3; color: white; align-self: flex-end; border-bottom-right-radius: 0; }
-
-.chat-input-area { display: flex; padding: 10px; border-top: 1px solid rgba(0,0,0,0.1); background: white; }
-.chat-input-area input { flex-grow: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 20px; outline: none; margin-right: 10px; font-size: 0.95rem; }
-.chat-input-area button { background: #0056b3; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
-.chat-input-area button:hover { background: #003d82; }
-
-.chat-action-btn {
-    display: inline-block; margin-top: 8px; background: #e6f0fa; color: #0056b3;
-    border: 1px solid #0056b3; padding: 6px 12px; border-radius: 6px;
-    cursor: pointer; font-size: 0.8rem; font-weight: bold; text-decoration: none;
-    transition: all 0.2s; text-align: center; width: 100%;
-}
-.chat-action-btn:hover { background: #0056b3; color: white; }
-
-@media (max-width: 768px) { 
-    .subject-row { flex-direction: column; align-items: stretch; } 
-    .remove-btn { text-align: left; padding: 0; margin-top: 0.5rem; } 
-    .chatbot-window { width: 90%; right: 5%; bottom: 90px; }
+    cursor: move; /* Added this */
+    touch-action: none; /* Added this */
 }
