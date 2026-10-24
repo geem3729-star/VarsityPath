@@ -124,29 +124,15 @@ footer { text-align: center; padding: 1.5rem; background-color: rgba(34, 34, 34,
 .tab-btn.active { background-color: #0056b3; color: white; border-color: #0056b3; box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3); }
 .search-box { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); border: 1px solid rgba(255,255,255,0.8); max-width: 800px; margin: 0 auto 3rem auto; text-align: left; }
 .search-box select { width: 100%; padding: 1rem; font-size: 1rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; background-color: rgba(255, 255, 255, 0.9); margin-top: 0.8rem; outline: none; }
-/* Update these existing classes in your CSS */
-.chatbot-fab {
-    position: fixed; bottom: 30px; right: 30px; padding: 15px 25px; border-radius: 50px;
-    background-color: #0056b3; color: white; border: none; font-size: 1rem; font-weight: bold;
-    cursor: grab; /* Added this */
-    touch-action: none; /* Added this */
-    box-shadow: 0 4px 15px rgba(0,86,179,0.4); z-index: 9999; transition: transform 0.2s;
-}
 
-.chat-header {
-    background: #0056b3; color: white; padding: 1rem;
-    display: flex; justify-content: space-between; align-items: center; font-weight: bold;
-    cursor: move; /* Added this */
-    touch-action: none; /* Added this */
-}
-/* --- CHATBOT STYLES (FIXED) --- */
+/* --- CHATBOT STYLES (FIXED BUGS) --- */
 .chatbot-fab {
     position: fixed !important; 
     bottom: 30px !important; 
     right: 30px !important; 
-    width: auto !important;
-    height: auto !important;
-    padding: 15px 25px !important;
+    width: fit-content !important; 
+    height: fit-content !important;
+    padding: 12px 24px !important;
     border-radius: 50px !important;
     background-color: #0056b3; 
     color: white; 
@@ -157,9 +143,12 @@ footer { text-align: center; padding: 1.5rem; background-color: rgba(34, 34, 34,
     touch-action: none;
     box-shadow: 0 4px 15px rgba(0,86,179,0.4); 
     z-index: 99999 !important; 
-    display: inline-block !important;
+    display: flex !important; 
+    align-items: center !important;
+    justify-content: center !important;
+    user-select: none;
+    -webkit-user-select: none;
 }
-
 .chatbot-fab:hover { background-color: #003d82; }
 
 .chatbot-window {
@@ -173,16 +162,21 @@ footer { text-align: center; padding: 1.5rem; background-color: rgba(34, 34, 34,
     border-radius: 16px; 
     border: 1px solid rgba(255, 255, 255, 0.8); 
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
-    display: flex !important; 
+    display: flex; /* NO !important HERE */
     flex-direction: column !important; 
     z-index: 99999 !important; 
     overflow: hidden;
 }
 
+/* THIS IS THE FIX: Force hide when the hidden class is present */
+.chatbot-window.hidden {
+    display: none !important;
+}
+
 .chat-header {
     background: #0056b3; color: white; padding: 1rem;
     display: flex; justify-content: space-between; align-items: center; font-weight: bold;
-    cursor: move; touch-action: none;
+    cursor: move; touch-action: none; user-select: none; -webkit-user-select: none;
 }
 .chat-header button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
 

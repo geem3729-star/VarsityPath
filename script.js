@@ -294,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // ==========================================
     // 8. CHATBOT LOGIC & DRAGGABLE FEATURE
     // ==========================================
@@ -306,101 +307,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (chatbotToggle && chatbotWindow) {
         
-        // --- DRAG LOGIC ---
         let isDragging = false;
-        let offsetX, offsetY;
-
-        function startDrag(e) {
-            if (e.target.id === 'chatbot-close') return; // Don't drag when clicking close
-            isDragging = false;
-            
-            const clientX = e.clientX || e.touches[0].clientX;
-            const clientY = e.clientY || e.touches[0].clientY;
-            
-            // Get the current position of the element
-            const rect = e.currentTarget.getBoundingClientRect();
-            offsetX = clientX - rect.left;
-            offsetY = clientY - rect.top;
-
-            document.addEventListener('mousemove', onDrag);
-            document.addEventListener('touchmove', onDrag, { passive: false });
-            document.addEventListener('mouseup', stopDrag);
-            document.addEventListener('touchend', stopDrag);
-        }
-
-        function onDrag(e) {
-            e.preventDefault();
-            isDragging = true;
-            const clientX = e.clientX || e.touches[0].clientX;
-            const clientY = e.clientY || e.touches[0].clientY;
-            
-            const el = e.currentTarget;
-            
-            // Calculate new position
-            let newX = clientX - offsetX;
-            let newY = clientY - offsetY;
-
-            // Keep inside screen bounds
-            newX = Math.max(0, Math.min(newX, window.innerWidth - el.offsetWidth));
-            newY = Math.max(0, Math.min(newY, window.innerHeight - el.offsetHeight));
-
-            el.style.left = `${newX}px`;
-            el.style.top = `${newY}px`;
-            el.style.bottom = 'auto';
-            el.style.right = 'auto';
-        }
-
-        function stopDrag() {
-            document.removeEventListener('mousemove', onDrag);
-            document.removeEventListener('touchmove', onDrag);
-            document.removeEventListener('mouseup', stopDrag);
-            document.removeEventListener('touchend', stopDrag);
-        }
-
-        // Attach drag events to the button and the header
-        chatbotToggle.addEventListener('mousedown', startDrag);
-        chatbotToggle.addEventListener('touchstart', startDrag);
         
-        const chatHeader = chatbotWindow.querySelector('.chat-header');
-        chatHeader.addEventListener('mousedown', (e) => {
-            const clientX = e.clientX;
-            const clientY = e.clientY;
-            const rect = chatbotWindow.getBoundingClientRect();
-            offsetX = clientX - rect.left;
-            offsetY = clientY - rect.top;
-            document.addEventListener('mousemove', onDragWindow);
-            document.addEventListener('mouseup', stopDragWindow);
-        });
+        function makeDraggable(element, handle) {
+            let startX, startY, initialX, initialY;
 
-        function onDragWindow(e) {
-            e.preventDefault();
-            let newX = e.clientX - offsetX;
-            let newY = e.clientY - offsetY;
-            newX = Math.max(0, Math.min(newX, window.innerWidth - chatbotWindow.offsetWidth));
-            newY = Math.max(0, Math.min(newY, window.innerHeight - chatbotWindow.offsetHeight));
-            chatbotWindow.style.left = `${newX}px`;
-            chatbotWindow.style.top = `${newY}px`;
-            chatbotWindow.style.bottom = 'auto';
-            chatbotWindow.style.right = 'auto';
-        }
+            handle.addEventListener("mousedown", dragStart);
+            handle.addEventListener("touchstart", dragStart, {passive: false});
 
-        function stopDragWindow() {
-            document.removeEventListener('mousemove', onDragWindow);
-            document.removeEventListener('mouseup', stopDragWindow);
-        }
+            function dragStart(e) {
+                if (e.target.id === 'chatbot-close') return; 
 
-        // --- TOGGLE LOGIC ---
-        chatbotToggle.addEventListener('click', (e) => {
-            if (isDragging) return; // If we just dragged, don't open the chat
-            chatbotWindow.classList.toggle('hidden');
-            
-            // Reset position to bottom right if it was moved and closed
-            if (chatbotWindow.classList.contains('hidden')) {
-                chatbotToggle.style.left = 'auto';
-                chatbotToggle.style.top = 'auto';
-                chatbotToggle.style.bottom = '30px';
-                chatbotToggle.style.right = '30px';
+                const rect = element.getBoundingClientRect();
+                let clientX = e.clientX || e.touches[0].clientX;
+                let clientY = e.clientY || e.touches[0].clientY;
+
+                // Calculate offset of mouse relative to the element's top-left corner
+                initialX = clientX - rect.left;
+                initialY = clientY - rect.top;
+
+                // Lock position to top/left immediately to prevent jumping
+                element.style.left = rect.left + 'px';
+                element.style.top = rect.top + 'px';
+                element.style.bottom = 'auto';
+                element.style.right = 'auto';
+
+                document.addEventListener("mousemove", drag);
+                document.addEventListener("touchmove", drag, {passive: false});
+                document.addEventListener("mouseup", dragEnd);
+                document.addEventListener("touchend", dragEnd);
+                isDragging = false;
             }
+
+            function drag(e) {
+                e.preventDefault(); 
+                isDragging = true;
+                
+                let clientX = e.clientX || e.touches[0].clientX;
+                let clientY = e.clientY || e.touches[0].clientY;
+
+                let newX = clientX - initialX;
+                let newY = clientY - initialY;
+
+                // Keep within screen bounds
+                newX = Math.max(0, Math.min(newX, window.innerWidth - element.offsetWidth));
+                newY = Math.max(0, Math.min(newY, window.innerHeight - element.offsetHeight));
+
+                element.style.left = `${newX}px`;
+                element.style.top = `${newY}px`;
+            }
+
+            function dragEnd() {
+                document.removeEventListener("mousemove", drag);
+                document.removeEventListener("touchmove", drag);
+                document.removeEventListener("mouseup", dragEnd);
+                document.removeEventListener("touchend", dragEnd);
+            }
+        }
+
+        // Make both the button and the window draggable
+        makeDraggable(chatbotToggle, chatbotToggle);
+        const chatHeader = chatbotWindow.querySelector('.chat-header');
+        makeDraggable(chatbotWindow, chatHeader);
+
+        // Toggle logic
+        chatbotToggle.addEventListener('click', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                return; 
+            }
+            chatbotWindow.classList.toggle('hidden');
         });
 
         chatbotClose.addEventListener('click', () => { 
@@ -412,7 +388,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
             msgDiv.innerHTML = text; 
-            
             if (actionFn && actionText) {
                 const btn = document.createElement('button');
                 btn.className = 'chat-action-btn';
@@ -470,6 +445,5 @@ document.addEventListener('DOMContentLoaded', () => {
         chatSend.addEventListener('click', handleChat);
         chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
     }
-
     
 });
