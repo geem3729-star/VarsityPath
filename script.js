@@ -304,87 +304,110 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatSend = document.getElementById('chat-send');
     const chatMessages = document.getElementById('chat-messages');
 
-    // --- DRAGGABLE LOGIC ---
-    let isDragging = false;
-
-    function makeDraggable(elmnt) {
-        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (chatbotToggle && chatbotWindow) {
         
-        elmnt.onmousedown = dragMouseDown;
-        elmnt.ontouchstart = dragMouseDown;
+        // --- DRAG LOGIC ---
+        let isDragging = false;
+        let offsetX, offsetY;
 
-        function dragMouseDown(e) {
-            // Only left click (button 0) or touch
-            if (e.button !== 0 && !e.touches) return;
-            // Don't drag if clicking the close button
-            if (e.target.id === 'chatbot-close') return;
-
+        function startDrag(e) {
+            if (e.target.id === 'chatbot-close') return; // Don't drag when clicking close
             isDragging = false;
-            let clientX = e.clientX || e.touches[0].clientX;
-            let clientY = e.clientY || e.touches[0].clientY;
-            pos3 = clientX;
-            pos4 = clientY;
             
-            document.onmouseup = closeDragElement;
-            document.ontouchend = closeDragElement;
-            document.onmousemove = elementDrag;
-            document.ontouchmove = elementDrag;
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
+            
+            // Get the current position of the element
+            const rect = e.currentTarget.getBoundingClientRect();
+            offsetX = clientX - rect.left;
+            offsetY = clientY - rect.top;
+
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('touchmove', onDrag, { passive: false });
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
         }
 
-        function elementDrag(e) {
+        function onDrag(e) {
+            e.preventDefault();
             isDragging = true;
-            let clientX = e.clientX || e.touches[0].clientX;
-            let clientY = e.clientY || e.touches[0].clientY;
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
             
-            pos1 = pos3 - clientX;
-            pos2 = pos4 - clientY;
-            pos3 = clientX;
-            pos4 = clientY;
+            const el = e.currentTarget;
             
             // Calculate new position
-            let newTop = elmnt.offsetTop - pos2;
-            let newLeft = elmnt.offsetLeft - pos1;
+            let newX = clientX - offsetX;
+            let newY = clientY - offsetY;
 
-            // Keep within screen bounds
-            if (newTop < 0) newTop = 0;
-            if (newLeft < 0) newLeft = 0;
-            if (newTop > window.innerHeight - elmnt.offsetHeight) newTop = window.innerHeight - elmnt.offsetHeight;
-            if (newLeft > window.innerWidth - elmnt.offsetWidth) newLeft = window.innerWidth - elmnt.offsetWidth;
+            // Keep inside screen bounds
+            newX = Math.max(0, Math.min(newX, window.innerWidth - el.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - el.offsetHeight));
 
-            // Apply new position (switch from bottom/right to top/left)
-            elmnt.style.bottom = 'auto';
-            elmnt.style.right = 'auto';
-            elmnt.style.top = newTop + "px";
-            elmnt.style.left = newLeft + "px";
+            el.style.left = `${newX}px`;
+            el.style.top = `${newY}px`;
+            el.style.bottom = 'auto';
+            el.style.right = 'auto';
         }
 
-        function closeDragElement() {
-            document.onmouseup = null;
-            document.ontouchend = null;
-            document.onmousemove = null;
-            document.ontouchmove = null;
+        function stopDrag() {
+            document.removeEventListener('mousemove', onDrag);
+            document.removeEventListener('touchmove', onDrag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchend', stopDrag);
         }
-    }
 
-    // Apply draggable to the FAB button and the Chat Header
-    if (chatbotToggle && chatbotWindow) {
-        makeDraggable(chatbotToggle);
-        makeDraggable(chatbotWindow.querySelector('.chat-header'));
-
-        // Toggle Chatbot Window
-        chatbotToggle.addEventListener('click', (e) => { 
-            if (isDragging) {
-                e.preventDefault();
-                return; // Don't open if the user was dragging
-            }
-            chatbotWindow.classList.toggle('hidden'); 
-        });
+        // Attach drag events to the button and the header
+        chatbotToggle.addEventListener('mousedown', startDrag);
+        chatbotToggle.addEventListener('touchstart', startDrag);
         
+        const chatHeader = chatbotWindow.querySelector('.chat-header');
+        chatHeader.addEventListener('mousedown', (e) => {
+            const clientX = e.clientX;
+            const clientY = e.clientY;
+            const rect = chatbotWindow.getBoundingClientRect();
+            offsetX = clientX - rect.left;
+            offsetY = clientY - rect.top;
+            document.addEventListener('mousemove', onDragWindow);
+            document.addEventListener('mouseup', stopDragWindow);
+        });
+
+        function onDragWindow(e) {
+            e.preventDefault();
+            let newX = e.clientX - offsetX;
+            let newY = e.clientY - offsetY;
+            newX = Math.max(0, Math.min(newX, window.innerWidth - chatbotWindow.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - chatbotWindow.offsetHeight));
+            chatbotWindow.style.left = `${newX}px`;
+            chatbotWindow.style.top = `${newY}px`;
+            chatbotWindow.style.bottom = 'auto';
+            chatbotWindow.style.right = 'auto';
+        }
+
+        function stopDragWindow() {
+            document.removeEventListener('mousemove', onDragWindow);
+            document.removeEventListener('mouseup', stopDragWindow);
+        }
+
+        // --- TOGGLE LOGIC ---
+        chatbotToggle.addEventListener('click', (e) => {
+            if (isDragging) return; // If we just dragged, don't open the chat
+            chatbotWindow.classList.toggle('hidden');
+            
+            // Reset position to bottom right if it was moved and closed
+            if (chatbotWindow.classList.contains('hidden')) {
+                chatbotToggle.style.left = 'auto';
+                chatbotToggle.style.top = 'auto';
+                chatbotToggle.style.bottom = '30px';
+                chatbotToggle.style.right = '30px';
+            }
+        });
+
         chatbotClose.addEventListener('click', () => { 
             chatbotWindow.classList.add('hidden'); 
         });
 
-        // --- CHAT MESSAGE LOGIC ---
+        // --- CHAT LOGIC ---
         function appendMessage(sender, text, actionFn = null, actionText = "") {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
@@ -408,7 +431,6 @@ document.addEventListener('DOMContentLoaded', () => {
         function handleChat() {
             const text = chatInput.value.trim();
             if (!text) return;
-            
             appendMessage('user', text);
             chatInput.value = '';
 
@@ -419,29 +441,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 let actionText = "";
 
                 if (lowerText.includes('aps') || lowerText.includes('score') || lowerText.includes('calculate')) {
-                    response = "You can calculate your APS score on the Dashboard. We have a simple calculator and an advanced one that uses your Matric marks.";
+                    response = "You can calculate your APS score on the Dashboard.";
                     action = showDashboard; actionText = "Go to Calculator";
                 } else if (lowerText.includes('fund') || lowerText.includes('nsfas') || lowerText.includes('money') || lowerText.includes('bursary')) {
-                    response = "We have a whole section dedicated to Funding & Cost Planning, including NSFAS information!";
+                    response = "We have a whole section dedicated to Funding & Cost Planning!";
                     action = showFunding; actionText = "View Funding";
                 } else if (lowerText.includes('support') || lowerText.includes('mental') || lowerText.includes('wellness') || lowerText.includes('help')) {
-                    response = "Your well-being is important. We offer links to SADAG counselling, academic persistence tips, and accessible learning resources.";
+                    response = "Your well-being is important. We offer links to SADAG counselling and academic resources.";
                     action = showSupport; actionText = "View Support";
                 } else if (lowerText.includes('course') || lowerText.includes('study') || lowerText.includes('search')) {
-                    response = "You can search for courses by field of study and see which universities offer them.";
+                    response = "You can search for courses by field of study.";
                     action = showCourseSearch; actionText = "Search Courses";
                 } else if (lowerText.includes('university') || lowerText.includes('tvet') || lowerText.includes('college') || lowerText.includes('directory')) {
-                    response = "Browse all 26 public universities, private colleges, and TVET colleges in our Directory.";
+                    response = "Browse all 26 public universities, private colleges, and TVET colleges.";
                     action = showDirectory; actionText = "Browse Directory";
                 } else if (lowerText.includes('about') || lowerText.includes('who made') || lowerText.includes('hackathon')) {
-                    response = "VarsityPath was built for the FNB Hackathon! You can read all about our mission on the About page.";
+                    response = "VarsityPath was built for the FNB Hackathon!";
                     action = showAbout; actionText = "Read About Us";
                 } else if (lowerText.includes('hi') || lowerText.includes('hello') || lowerText.includes('hey')) {
                     response = "Hello! I'm your VarsityPath assistant. Ask me about calculating your APS, finding funding, or searching for courses.";
                 } else {
-                    response = "I'm not sure about that one! Try asking about: 'Calculate APS', 'Funding options', 'Find a course', or 'About the app'.";
+                    response = "I'm not sure about that one! Try asking about: 'Calculate APS', 'Funding options', or 'About the app'.";
                 }
-
                 appendMessage('bot', response, action, actionText);
             }, 600);
         }
@@ -450,5 +471,5 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
     }
 
-
+    
 });
